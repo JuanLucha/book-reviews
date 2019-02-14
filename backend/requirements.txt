@@ -1,0 +1,6 @@
+Flask
+flask-cors
+Flask-Session
+psycopg2-binary
+SQLAlchemy
+pylint
