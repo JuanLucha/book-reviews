@@ -53,8 +53,9 @@ def login():
     password = request.form['password']
     register_query = "SELECT username FROM users WHERE email = '{0}' AND password = '{1}'".format(
         email, password)
-    result = conn.execute(register_query)
-    if result.rowcount > 0:
-        session['logged_in'] = True
+    result = conn.execute(register_query).fetchone()
+    if result:
+        session['logged'] = True
+        return jsonify(dict(result))
     else:
-        return jsonify({})
+        return jsonify({"error": "No user with that credentials was found"})
