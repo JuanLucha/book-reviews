@@ -49,8 +49,9 @@ def register():
 
 @app.route("/user/login", methods=['POST'])
 def login():
-    email = request.form['email']
-    password = request.form['password']
+    values = request.get_json()
+    email = values['email']
+    password = values['password']
     register_query = "SELECT username FROM users WHERE email = '{0}' AND password = '{1}'".format(
         email, password)
     result = conn.execute(register_query).fetchone()
