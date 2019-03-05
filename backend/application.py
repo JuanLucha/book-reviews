@@ -60,3 +60,8 @@ def login():
         return jsonify(dict(result))
     else:
         return jsonify({"error": "No user with that credentials was found"})
+
+@app.route("/user/logout", methods=['POST'])
+def logout():
+    session['logged'] = False
+    return jsonify({"logout": True})
