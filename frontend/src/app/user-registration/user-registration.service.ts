@@ -1,7 +1,7 @@
 import { User } from './../shared/user.model'
 import { baseUrl } from './../shared/http.constants'
 import { httpOptions } from '../shared/http.constants'
-import { UserCredentials } from './user-credentials.interface'
+import { UserCredentials } from '../shared/user-credentials.interface'
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs/Observable'
 import { Injectable } from '@angular/core'

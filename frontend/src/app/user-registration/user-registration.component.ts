@@ -1,6 +1,6 @@
 import { UserRegistrationService } from './user-registration.service'
 import { Component, OnInit } from '@angular/core'
-import { UserCredentials } from './user-credentials.interface'
+import { UserCredentials } from '../shared/user-credentials.interface'
 
 @Component({
   selector: 'app-user-registration',
@@ -18,6 +18,6 @@ export class UserRegistrationComponent {
 
   public registerUser(): void {
     this.userRegistrationService.registerUser(this.credentials)
-    .subscribe(() => {}, (error) => {console.log(error)})
+      .subscribe(() => { }, (error) => { console.log(error) })
   }
 }

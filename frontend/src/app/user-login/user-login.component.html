@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>Login form</h1>
+  <form (ngSubmit)="loginUser()" #userForm="ngForm">
+    <div class="form-group">
+      <label for="email">email</label>
+      <input type="text" class="form-control" id="email" name="email" [(ngModel)]="credentials.email" #email="ngModel" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password" [(ngModel)]="credentials.password" #password="ngModel" required>
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="!userForm.form.valid">Login</button>
+
+  </form>
+</div>

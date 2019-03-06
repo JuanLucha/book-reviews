@@ -1,3 +1,7 @@
+import { DashboardComponent } from './dashboard/dashboard.component'
+import { UserLoginService } from './shared/user-login.service'
+import { UserLoginComponent } from './user-login/user-login.component'
+import { appRoutes } from './app.routes'
 import { UserRegistrationService } from './user-registration/user-registration.service'
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
@@ -6,19 +10,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { UserRegistrationComponent } from './user-registration/user-registration.component'
 import { FormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http'
+import { RouterModule, Routes } from '@angular/router'
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserRegistrationComponent
+    DashboardComponent,
+    UserRegistrationComponent,
+    UserLoginComponent,
   ],
   imports: [
+    RouterModule.forRoot(appRoutes, { enableTracing: true }),
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
   ],
-  providers: [UserRegistrationService],
+  providers: [UserRegistrationService, UserLoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

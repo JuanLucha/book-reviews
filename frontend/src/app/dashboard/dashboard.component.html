@@ -1,0 +1,5 @@
+<button (click)="logout()">Logout</button>
+<input [(ngValue)]="searchTerm" placeholder="Input some searchterm" />
+<ul *ngIf="searchResults">
+  <li *ngFor="let result from searchResults">{{result.title}}</li>
+</ul>

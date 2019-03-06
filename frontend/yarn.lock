@@ -27,9 +27,10 @@
     "@ngtools/json-schema" "^1.1.0"
     rxjs "^5.5.6"
 
-"@angular/animations@^7.2.1":
-  version "7.2.1"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-7.2.1.tgz#10cdca8b68ce9a91d81b77348146d1db608fc25f"
+"@angular/animations@6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-6.0.5.tgz#3964bc2a60facf3c3b417925c4a395b3f44abb94"
+  integrity sha512-zW/qX3CvsuRDOcTNFFSf7uXktvq1jRrfKR8LdGQ/DER1GU3o8pR3z3H8gHy8lAFc3PESfETtzXinKUNzvTDfpA==
   dependencies:
     tslib "^1.9.0"
 

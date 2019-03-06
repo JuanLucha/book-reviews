@@ -1,9 +1,14 @@
 import { HttpHeaders } from '@angular/common/http'
 
-export const httpOptions = {
+const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    'Content-Type': 'application/json',
   })
 }
 
-export const baseUrl: string = 'http://localhost:5000'
+const baseUrl: string = 'http://localhost:5000'
+
+export {
+  httpOptions,
+  baseUrl
+}
