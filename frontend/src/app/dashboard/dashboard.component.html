@@ -1,5 +1,6 @@
 <button (click)="logout()">Logout</button>
-<input [(ngValue)]="searchTerm" placeholder="Input some searchterm" />
-<ul *ngIf="searchResults">
-  <li *ngFor="let result from searchResults">{{result.title}}</li>
+<input [(ngModel)]="searchTerm" placeholder="Input some searchterm" (keydown.enter)="searchBooks($event)" />
+<ul *ngIf="books">
+  <li *ngFor="let result of books">{{result.title}}</li>
 </ul>
+<div *ngIf="noBooksMessage">No books found with that search term</div>

@@ -11,6 +11,7 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { FormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http'
 import { RouterModule, Routes } from '@angular/router'
+import { BookSearchService } from './shared/book-search.service'
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { RouterModule, Routes } from '@angular/router'
     FormsModule,
     HttpClientModule,
   ],
-  providers: [UserRegistrationService, UserLoginService],
+  providers: [BookSearchService, UserRegistrationService, UserLoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

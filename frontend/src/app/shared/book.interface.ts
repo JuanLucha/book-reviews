@@ -4,3 +4,7 @@ export interface Book {
   author: string
   year: number
 }
+
+export interface BookResponse {
+  books: Book[]
+}

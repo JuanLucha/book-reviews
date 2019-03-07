@@ -1,6 +1,5 @@
 import { User } from './user.model'
-import { baseUrl } from './http.constants'
-import { httpOptions } from './http.constants'
+import { baseUrl, httpOptions } from './http.constants'
 import { UserCredentials } from './user-credentials.interface'
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs/Observable'
