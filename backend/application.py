@@ -71,9 +71,13 @@ def logout():
 @app.route("/book/search", methods=['GET'])
 def search():
     search_term = request.args.get('term', '')
-    print(search_term)
     search_query = "SELECT * FROM books WHERE isbn LIKE '%%{}%%' OR title LIKE '%%{}%%' OR author LIKE '%%{}%%'".format(
         search_term, search_term, search_term)
-    print(search_query)
     result = conn.execute(search_query).fetchall()
     return jsonify({'books': [dict(book) for book in result]})
+
+@app.route("/book/<id>", methods=['GET'])
+def get_book(id):
+    search_query = "SELECT * FROM books WHERE id = {}".format(id)
+    book = conn.execute(search_query).fetchone()
+    return jsonify({'book': dict(book)})
