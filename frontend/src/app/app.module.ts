@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http'
 import { RouterModule, Routes } from '@angular/router'
 import { BookSearchService } from './shared/book-search.service'
+import { BookComponent } from './books/book.component'
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { BookSearchService } from './shared/book-search.service'
     DashboardComponent,
     UserRegistrationComponent,
     UserLoginComponent,
+    BookComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { enableTracing: true }),
