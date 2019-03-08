@@ -81,3 +81,13 @@ def get_book(id):
     search_query = "SELECT * FROM books WHERE id = {}".format(id)
     book = conn.execute(search_query).fetchone()
     return jsonify({'book': dict(book)})
+
+@app.route("/book/review", methods=['POST'])
+def add_review():
+    values = request.get_json()
+    rate = values['rate']
+    review = values['review']
+    book_id = values['bookId']
+    add_review_query = "INSERT INTO reviews(book_id, rate, review) VALUES ({}, {}, '{}')".format(book_id, rate, review)
+    conn.execute(add_review_query)
+    return jsonify({'success': True})
