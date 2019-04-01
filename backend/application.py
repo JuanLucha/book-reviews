@@ -52,7 +52,7 @@ def login():
     values = request.get_json()
     email = values['email']
     password = values['password']
-    register_query = "SELECT username FROM users WHERE email = '{0}' AND password = '{1}'".format(
+    register_query = "SELECT * FROM users WHERE email = '{0}' AND password = '{1}'".format(
         email, password)
     result = conn.execute(register_query).fetchone()
     if result:
@@ -76,11 +76,18 @@ def search():
     result = conn.execute(search_query).fetchall()
     return jsonify({'books': [dict(book) for book in result]})
 
+
 @app.route("/book/<id>", methods=['GET'])
 def get_book(id):
     search_query = "SELECT * FROM books WHERE id = {}".format(id)
     book = conn.execute(search_query).fetchone()
-    return jsonify({'book': dict(book)})
+    search_reviews = "SELECT * FROM reviews, users WHERE reviews.book_id = {} AND reviews.user_id = users.id".format(
+        id)
+    reviews = conn.execute(search_reviews).fetchall()
+    result = {'book': dict(book), 'reviews': [
+        dict(review) for review in reviews]}
+    return jsonify(result)
+
 
 @app.route("/book/review", methods=['POST'])
 def add_review():
@@ -88,6 +95,8 @@ def add_review():
     rate = values['rate']
     review = values['review']
     book_id = values['bookId']
-    add_review_query = "INSERT INTO reviews(book_id, rate, review) VALUES ({}, {}, '{}')".format(book_id, rate, review)
+    user_id = values['userId']
+    add_review_query = "INSERT INTO reviews(book_id, rate, review, user_id) VALUES ({}, {}, '{}', {})".format(
+        book_id, rate, review, user_id)
     conn.execute(add_review_query)
     return jsonify({'success': True})

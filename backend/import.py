@@ -12,7 +12,7 @@ conn = create_engine(conn_string)
 conn.execute('CREATE TABLE IF NOT EXISTS users (username VARCHAR(50), password VARCHAR(300), email VARCHAR(200), id SERIAL PRIMARY KEY)')
 
 # Reviews table creation
-conn.execute('CREATE TABLE IF NOT EXISTS reviews (book_id INTEGER, review VARCHAR(500), rate SMALLINT, id SERIAL PRIMARY KEY)')
+conn.execute('CREATE TABLE IF NOT EXISTS reviews (book_id INTEGER, review VARCHAR(500), rate SMALLINT, id SERIAL PRIMARY KEY, user_id SMALLINT)')
 
 # Books table creation and population
 conn.execute('CREATE TABLE IF NOT EXISTS books (isbn VARCHAR(15), title VARCHAR(50), author VARCHAR(50), year INTEGER, id SERIAL PRIMARY KEY)')

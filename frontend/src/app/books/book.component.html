@@ -3,5 +3,13 @@
   <div><b>Author: </b>{{book.author}}</div>
   <div><b>Year of publication: </b>{{book.year}}</div>
   <div><b>ISBN: </b>{{book.isbn}}</div>
+  <div><input [(ngModel)]="reviewBody" placeholder="Make a review" /></div>
+  <div><input [(ngModel)]="rate" placeholder="Write a rate between 1 and 5" /></div>
+  <button (click)="sendReview()">Send review</button>
+  <div *ngFor="let review of reviews">
+    <div>User: {{review.user}}</div>
+    <div>Rate: {{review.rate}}</div>
+    <div>Review: {{review.review}}</div>
+  </div>
 </div>
 <a routerLink="/dashboard">Go back</a>

@@ -2,6 +2,8 @@ import { Router } from '@angular/router'
 import { UserLoginService } from '../shared/user-login.service'
 import { Component } from '@angular/core'
 import { UserCredentials } from '../shared/user-credentials.interface'
+import { UserService } from '../shared/user.service';
+import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-user-login',
@@ -17,11 +19,15 @@ export class UserLoginComponent {
 
   constructor(
     private userLoginService: UserLoginService,
-    private router: Router
-    ) { }
+    private router: Router,
+    private userService: UserService,
+  ) { }
 
   public loginUser(): void {
     this.userLoginService.loginUser(this.credentials)
-      .subscribe(() => { this.router.navigate(['/dashboard']) }, (error) => { console.log(error) })
+      .subscribe((user: User) => {
+        this.userService.setUser(user)
+        this.router.navigate(['/dashboard'])
+      }, (error) => { console.log(error) })
   }
 }
