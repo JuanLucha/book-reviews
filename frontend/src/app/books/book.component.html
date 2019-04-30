@@ -12,4 +12,6 @@
     <div>Review: {{review.review}}</div>
   </div>
 </div>
+<div *ngIf="!book">Loading...</div>
+<br>
 <a routerLink="/dashboard">Go back</a>

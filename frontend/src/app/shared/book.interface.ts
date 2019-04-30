@@ -4,6 +4,7 @@ export interface Book {
   author: string
   year: number
   id?: number
+  reviews: any[]
 }
 
 export interface BookResponse {

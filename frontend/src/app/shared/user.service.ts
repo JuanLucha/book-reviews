@@ -1,9 +1,13 @@
-import { Injectable } from "@angular/core";
-import { User } from "./user.model";
+import { Injectable } from '@angular/core'
+import { User } from './user.model'
 
 @Injectable()
 export class UserService {
   private user: User = new User()
+
+  constructor() {
+    this.user = JSON.parse(localStorage.getItem('user'))
+  }
 
   public getUser(): User {
     return this.user
@@ -23,5 +27,6 @@ export class UserService {
 
   public setUser(user: User): void {
     this.user = user
+    localStorage.setItem('user', JSON.stringify(user))
   }
 }

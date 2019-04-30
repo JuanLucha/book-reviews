@@ -9,8 +9,8 @@ export class BookSearchService {
   constructor(private http: HttpClient) {
   }
 
-  public getBook(id: number): Observable<{book: Book}> {
-    return this.http.get<{book: Book}>(`${bookUrl}/${id}`)
+  public getBook(id: number): Observable<Book> {
+    return this.http.get<Book>(`${bookUrl}/${id}`)
   }
 
   public searchBook(searchTerm: string): Observable<BookResponse> {

@@ -1,5 +1,5 @@
-<button (click)="logout()">Logout</button>
-<input [(ngModel)]="searchTerm" placeholder="Input some searchterm" (keydown.enter)="searchBooks($event)" />
+<button class="float-right btn btn-info" (click)="logout()">Logout</button>
+<input [(ngModel)]="searchTerm" placeholder="Input some searchterm and press enter" (keydown.enter)="searchBooks($event)" />
 <ul *ngIf="books">
   <li *ngFor="let result of books"><a routerLink="/book/{{result.id}}">{{result.title}}</a></li>
 </ul>

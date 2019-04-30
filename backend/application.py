@@ -130,14 +130,10 @@ def get_book(condition):
 def get_review_info(isbn):
     api_url = "https://www.goodreads.com/book/review_counts.json?key={}&isbns[]={}".format(
         good_reads_api_key, isbn)
-    print(api_url)
     result = requests.get(api_url)
     review_info = {}
-    print(result)
     if result.status_code == 200:
         result_body = result.json()
-        print("rr == ")
-        print(result_body)
         review_info['average_score'] = float(result_body['books'][0]['average_rating'])
         review_info['review_count'] = result_body['books'][0]['reviews_count']
     return review_info

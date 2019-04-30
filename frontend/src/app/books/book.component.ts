@@ -17,6 +17,8 @@ export class BookComponent {
   public reviewBody: string
   public reviews: BookReview[] = []
 
+  private bookId: number
+
   constructor(
     private userService: UserService,
     private bookSearchService: BookSearchService,
@@ -26,12 +28,8 @@ export class BookComponent {
   }
 
   ngOnInit() {
-    const id: number = +this.route.snapshot.paramMap.get('id')
-    this.bookSearchService.getBook(id)
-      .subscribe((result: { book: Book, reviews: BookReview[] }) => {
-        this.book = result.book
-        this.reviews = result.reviews
-      })
+    this.bookId = +this.route.snapshot.paramMap.get('id')
+    this.getBook(this.bookId)
   }
 
   public sendReview(): void {
@@ -43,6 +41,20 @@ export class BookComponent {
     }
 
     this.bookReviewService.addReview(review)
-      .subscribe((result) => console.log(result))
+      .subscribe((result: {success: boolean}) => {
+        if (result.success) {
+          this.getBook(this.bookId)
+        }
+      })
+  }
+
+  private getBook(id: number) {
+    this.book = null
+
+    this.bookSearchService.getBook(id)
+      .subscribe((result: Book) => {
+        this.book = result
+        this.reviews = result.reviews
+      })
   }
 }
