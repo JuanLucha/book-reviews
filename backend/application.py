@@ -7,6 +7,8 @@ from flask import jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 import logging
+import requests
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -33,6 +35,9 @@ Session(app)
 # Set up database
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
+
+# Key for Good Reads Api
+good_reads_api_key = os.getenv("GOODREADS_KEY")
 
 
 @app.route("/user/register", methods=['POST'])
@@ -78,15 +83,12 @@ def search():
 
 
 @app.route("/book/<id>", methods=['GET'])
-def get_book(id):
-    search_query = "SELECT * FROM books WHERE id = {}".format(id)
-    book = conn.execute(search_query).fetchone()
-    search_reviews = "SELECT * FROM reviews, users WHERE reviews.book_id = {} AND reviews.user_id = users.id".format(
-        id)
-    reviews = conn.execute(search_reviews).fetchall()
-    result = {'book': dict(book), 'reviews': [
-        dict(review) for review in reviews]}
-    return jsonify(result)
+def get_book_by_id(id):
+    search_query = "id = {}".format(id)
+    book = get_book(search_query)
+    review_info = get_review_info(book['isbn'])
+    book = dict(book, **review_info)
+    return jsonify(book)
 
 
 @app.route("/book/review", methods=['POST'])
@@ -100,3 +102,42 @@ def add_review():
         book_id, rate, review, user_id)
     conn.execute(add_review_query)
     return jsonify({'success': True})
+
+
+@app.route("/api/<isbn>", methods=['GET'])
+def get_book_by_isbn(isbn):
+    search_query = "isbn = '{}'".format(isbn)
+    book = get_book(search_query)
+    review_info = get_review_info(isbn)
+    book = dict(book, **review_info)
+    return jsonify(book)
+
+
+# Helpers
+
+def get_book(condition):
+    search_query = "SELECT * FROM books WHERE {}".format(condition)
+    book = conn.execute(search_query).fetchone()
+    book = dict(book)
+    search_reviews = "SELECT * FROM reviews, users WHERE reviews.book_id = {} AND reviews.user_id = users.id".format(
+        book['id'])
+    reviews = conn.execute(search_reviews).fetchall()
+    book['reviews'] = []
+    for review in reviews:
+        book['reviews'].append(dict(review))
+    return book
+
+def get_review_info(isbn):
+    api_url = "https://www.goodreads.com/book/review_counts.json?key={}&isbns[]={}".format(
+        good_reads_api_key, isbn)
+    print(api_url)
+    result = requests.get(api_url)
+    review_info = {}
+    print(result)
+    if result.status_code == 200:
+        result_body = result.json()
+        print("rr == ")
+        print(result_body)
+        review_info['average_score'] = float(result_body['books'][0]['average_rating'])
+        review_info['review_count'] = result_body['books'][0]['reviews_count']
+    return review_info

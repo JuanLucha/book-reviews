@@ -1,1 +1,1 @@
-FLASK_APP=application.py DATABASE_URL=postgres://opplqhbestjfch:fb76f1edbbc26da3fb7f31adbc752f3354d7b4726b91452eba17c20a5ace5d72@ec2-50-17-250-38.compute-1.amazonaws.com:5432/dea1fj8vq9cn8j flask run
+FLASK_APP=application.py DATABASE_URL=postgres://opplqhbestjfch:fb76f1edbbc26da3fb7f31adbc752f3354d7b4726b91452eba17c20a5ace5d72@ec2-50-17-250-38.compute-1.amazonaws.com:5432/dea1fj8vq9cn8j GOODREADS_KEY=5a7hxIzU0FirUw48FLiXVg flask run
